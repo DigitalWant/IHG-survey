@@ -1,0 +1,120 @@
+<!doctype html>
+<html class="no-js" lang=""  ng-app="myApp">
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ihg survey</title>
+
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <!-- Place favicon.ico in the root directory -->
+
+  <!-- build:css styles/vendor.css -->
+  <!-- bower:css -->
+
+  <!-- endbower -->
+  <!-- endbuild -->
+
+  <!-- build:css styles/main.css -->
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- endbuild -->
+
+
+  <script type="text/javascript" src="scripts/angular/angular.min.js"></script>
+  <script type="text/javascript" src="scripts/angular/angular-route.min.js"></script>
+
+  <!-- build:js scripts/vendor/angular-all.js -->
+  <script src="/bower_components/angular-aria/angular-aria.js"></script>
+  <script src="/bower_components/angular-animate/angular-animate.js"></script>
+  <script src="/bower_components/angular-material/angular-material.js"></script>
+  <!-- endbuild -->
+
+
+  <!-- build:js scripts/vendor/modernizr.js -->
+  <script src="/bower_components/modernizr/modernizr.js"></script>
+  <!-- endbuild -->
+</head>
+
+<body class="ng-cloak">
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#/">
+          <img src="images/uhf_ihg_logo@2x.png" alt="" />
+        </a>
+      </div>
+      <!--
+              <div class="collapse navbar-collapse navbar-ex1-collapse">
+                  <ul class="nav navbar-nav">
+                      <li ng-class="{active: isActive('/survey')}"><a href="#/survey">Take the Survey</a></li>
+                      <li ng-class="{active: isActive('/result')}" ng-show="authData"><a href="#/result">Survey Result</a></li>
+                  </ul>
+                  <ul class="nav navbar-nav navbar-right">
+                      <li ng-hide="authData" class="active"><a href="#/login">Login</a></li>
+                      <li ng-show="authData"><a href ng-click="logout()">Logout</a></li>
+                  </ul>
+              </div> /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+  </nav>
+
+  <div class="container">
+    <!-- Main content -->
+    <div ng-view></div>
+  </div>
+
+  <div class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container">
+      <p class="text-muted credit">© 2015 IHG. All rights reserved. Most hotels are independently owned and operated.
+      </p>
+    </div>
+  </div>
+  <!-- build:js scripts/vendor.js -->
+  <!-- bower:js -->
+  <script src="/bower_components/jquery/dist/jquery.js"></script>
+  <!-- endbower -->
+  <!-- endbuild -->
+
+  <!-- build:js scripts/plugins.js -->
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/affix.js"></script>
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/alert.js"></script>
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/dropdown.js"></script>
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tooltip.js"></script>
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/modal.js"></script>
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/transition.js"></script>
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/button.js"></script>
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/popover.js"></script>
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/carousel.js"></script>
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/scrollspy.js"></script>
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/collapse.js"></script>
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tab.js"></script>
+  <!-- endbuild -->
+
+  <!-- firebase 2.2.4 -->
+  <script type="text/javascript" src="scripts/firebase/firebase.js"></script>
+  <!-- bootstrap 3.3.4 -->
+  <script type="text/javascript" src="scripts/bootstrap/js/bootstrap.min.js"></script>
+  <!-- angularFire 1.1.1 -->
+  <script type="text/javascript" src="scripts/angularFire/angularfire.min.js"></script>
+
+
+  <!-- build:js scripts/main.js -->
+  <!-- custom modules -->
+  <script type="text/javascript" src="scripts/app.js"></script>
+  <script type="text/javascript" src="scripts/config.js"></script>
+  <script type="text/javascript" src="scripts/services.js"></script>
+  <script type="text/javascript" src="scripts/controllers.js"></script>
+  <script type="text/javascript" src="scripts/filters.js"></script>
+  <script type="text/javascript" src="scripts/directives.js"></script>
+  <!-- endbuild -->
+</body>
+
+</html>

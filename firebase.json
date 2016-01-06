@@ -1,9 +1,0 @@
-{
-  "firebase": "ihgsurvey",
-  "public": ".",
-  "ignore": [
-    "firebase.json",
-    "**/.*",
-    "**/node_modules/**"
-  ]
-}

@@ -22,7 +22,10 @@ app.config(["$routeProvider",
             templateUrl: "partials/login.html",
             controller: "loginCtrl"
         });
-
+        $routeProvider.when("/demoSwipe", {
+            templateUrl: "partials/demoSwipe.html",
+            controller: "demoSwipeCtrl"
+        });
         $routeProvider.when("/result", {
             templateUrl: "partials/result.html",
             controller: "resultCtrl",
@@ -55,12 +58,12 @@ app.run(["$rootScope", "$location", "Auth",
         Auth.$onAuth(function(authData) {
           $rootScope.authData = authData;
         });
-        
+
         $rootScope.logout = function() {
             Auth.$unauth();
             $location.path("/survey");
         };
-        
+
         // show nav menu in highlight when it's active
         $rootScope.isActive = function (viewLocation) {
             return viewLocation === $location.path();
