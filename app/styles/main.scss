@@ -11,11 +11,7 @@ $icon-font-path: '../fonts/';
   padding: 0.2em 0;
 }
 
-/* Space out content a bit */
-body {
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
+
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
@@ -121,6 +117,14 @@ ul.rating {
 }
 
 .navbar-brand img {
-  width: 50%;
+  width: 27%;
   height: auto;
+}
+
+body {
+  padding-right: 0px !important
+}
+
+.modal-open {
+  overflow-y: auto;
 }

@@ -4,11 +4,13 @@
  * Controllers module which defines controllers.
  * @module myApp/controllers
  */
-var app = angular.module("myApp.controllers", ["ngRoute", "ngMaterial"]);
+ // var app = angular.module("myApp.controllers", ["ngRoute", "ngMaterial"]);
+ var app = angular.module("myApp.controllers", ["ngRoute"]);
 
 // Survey controller
 app.controller("surveyCtrl", ["$scope", "FBURL", "$firebaseArray",
-  function($scope, FBURL, $firebaseArray, $ngMaterial) {
+//function($scope, FBURL, $firebaseArray, $ngMaterial) {
+  function($scope, FBURL, $firebaseArray) {
 
     var ref = new Firebase(FBURL);
     // create a synchronized array
@@ -30,21 +32,21 @@ app.controller("surveyCtrl", ["$scope", "FBURL", "$firebaseArray",
 
         //$("#survey").modal("show");
     }
-    console.log($scope);
-    
-
-        $scope.onSwipeLeft = function(ev) {
-          alert('You swiped left!!');
-        };
-        $scope.onSwipeRight = function(ev) {
-          alert('You swiped right!!');
-        };
-        $scope.onSwipeUp = function(ev) {
-          alert('You swiped up!!');
-        };
-        $scope.onSwipeDown = function(ev) {
-          alert('You swiped down!!');
-        };
+    // console.log($scope);
+    //
+    //
+    //     $scope.onSwipeLeft = function(ev) {
+    //       alert('You swiped left!!');
+    //     };
+    //     $scope.onSwipeRight = function(ev) {
+    //       alert('You swiped right!!');
+    //     };
+    //     $scope.onSwipeUp = function(ev) {
+    //       alert('You swiped up!!');
+    //     };
+    //     $scope.onSwipeDown = function(ev) {
+    //       alert('You swiped down!!');
+    //     };
       // store data in this object
       // and set default values
     $scope.formData = {
