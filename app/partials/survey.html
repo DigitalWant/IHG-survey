@@ -1,113 +1,122 @@
+<div class="row">
+  <div class="col-xs-12">
+    <h4 class="modal-title">
+      Survey Questions</h4>
+  </div>
+</div>
 
-    <div class="modal-header">
-      <h4 class="modal-title">Survey Questions</h4>
+<hr>
+
+<div class="row">
+  <div class="col-xs-12">
+    <!-- success information/alert -->
+    <div class="alert alert-success alert-dismissable" ng-show="successInfo">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <strong>Thank you for your feedback!</strong>.
     </div>
-
-    <div class="modal-body" setQuestionHeight>
-      <!-- success information/alert -->
-      <div class="alert alert-success alert-dismissable" ng-show="successInfo">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-        <strong>Thank you for your feedback!</strong>.
-      </div>
-      <ks-swiper-container initial-slide="0" loop="false" direction="verticle" show-nav-buttons="true" slides-per-view="1" space-between="5" pagination-clickable="true" swiper="swiper" on-ready="onReadySwiper(swiper)">
-          <ks-swiper-slide>
-            <div>
-              <label>what is your IHGRC member tier</label>
-              <div class="form-group">
-                <div class="radio">
-                  <label>
-                    <input type="radio" name="spire" value="spire" ng-model="formData.age"> spire
-                  </label>
-                </div>
-                <div class="radio">
-                  <label>
-                    <input type="radio" name="platinum" value="platinum" ng-model="formData.age"> platinum
-                  </label>
-                </div>
-                <div class="radio">
-                  <label>
-                    <input type="radio" name="gold" value="gold" ng-model="formData.age"> gold
-                  </label>
-                </div>
-                <div class="radio">
-                  <label>
-                    <input type="radio" name="club" value="club" ng-model="formData.age"> club
-                  </label>
-                </div>
-              </div>
-            </div>
-          </ks-swiper-slide>
-          <ks-swiper-slide>
-            <!-- input box -->
-            <div class="form-group">
-              <label>Name (Input Box)</label>
-              <input type="text" class="form-control" name="name" ng-model="formData.name">
-            </div>
-          </ks-swiper-slide>
-          <ks-swiper-slide>
-            <!-- multiSelect checkboxes -->
-            <label>Favorite Colors (MultiSelect Checkboxes)</label>
-            <div class="form-group">
-              <label class="checkbox-inline">
-                <input type="checkbox" name="favoriteColors" ng-model="formData.colors.red"> Red
-              </label>
-              <label class="checkbox-inline">
-                <input type="checkbox" name="favoriteColors" ng-model="formData.colors.blue"> Blue
-              </label>
-              <label class="checkbox-inline">
-                <input type="checkbox" name="favoriteColors" ng-model="formData.colors.green"> Green
-              </label>
-            </div>
-          </ks-swiper-slide>
-          <ks-swiper-slide>
-            <!-- toggle choice -->
-            <div>
-              <label>Buy Me Lunch? (Toggle Choice)</label>
-              <div class="form-group">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-primary" ng-model="formData.lunch" btn-radio=true>YES</button>
-                  <button type="button" class="btn btn-primary" ng-model="formData.lunch" btn-radio=false>NO</button>
-                </div>
-              </div>
-            </div>
-
-          </ks-swiper-slide>
-          <ks-swiper-slide>
-
-            <!-- star rating -->
-            <div>
+    <ks-swiper-container initial-slide="0" loop="false" direction="vertical" show-nav-buttons="false" slides-per-view="1" space-between="0" pagination-is-active="true" pagination-clickable="false" swiper="swiper" on-ready="onReadySwiper(swiper)">
+      <ks-swiper-slide>
+        <div>
+          <label>what is your IHGRC member tier</label>
+          <div class="form-group">
+            <div class="radio">
               <label>
-                How likely would you be to recommend this application to a friend or colleague? (Star Rating)
-                <br />
-                <small>(0 is not at all likely, 10 is extremely likely)</small>
+                <input type="radio" name="spire" value="spire" ng-model="formData.age"> spire
               </label>
-              <div class="form-group">
-                <div star-rating rating-value="formData.rating" max="10" on-rating-selected="updateRating(rating)" readonly="false"></div>
-              </div>
             </div>
-
-          </ks-swiper-slide>
-          <ks-swiper-slide>
-            <!-- textarea -->
-            <div>
-              <label>Comments/Suggestions (Textarea)</label>
-              <div class="form-group">
-                <textarea class="form-control" rows="2" ng-model="formData.comment"></textarea>
-              </div>
+            <div class="radio">
+              <label>
+                <input type="radio" name="platinum" value="platinum" ng-model="formData.age"> platinum
+              </label>
             </div>
-          </ks-swiper-slide>
+            <div class="radio">
+              <label>
+                <input type="radio" name="gold" value="gold" ng-model="formData.age"> gold
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <input type="radio" name="club" value="club" ng-model="formData.age"> club
+              </label>
+            </div>
+          </div>
+        </div>
+      </ks-swiper-slide>
+      <ks-swiper-slide>
+        <!-- input box -->
+        <div class="form-group">
+          <label>Name (Input Box)</label>
+          <input type="text" class="form-control" name="name" ng-model="formData.name">
+        </div>
+      </ks-swiper-slide>
+      <ks-swiper-slide>
+        <!-- multiSelect checkboxes -->
+        <label>Favorite Colors (MultiSelect Checkboxes)</label>
+        <div class="form-group">
+          <label class="checkbox-inline">
+            <input type="checkbox" name="favoriteColors" ng-model="formData.colors.red"> Red
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="favoriteColors" ng-model="formData.colors.blue"> Blue
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="favoriteColors" ng-model="formData.colors.green"> Green
+          </label>
+        </div>
+      </ks-swiper-slide>
+      <ks-swiper-slide>
+        <!-- toggle choice -->
+        <div>
+          <label>Buy Me Lunch? (Toggle Choice)</label>
+          <div class="form-group">
+            <div class="btn-group">
+              <button type="button" class="btn btn-primary" ng-model="formData.lunch" btn-radio=true>YES</button>
+              <button type="button" class="btn btn-primary" ng-model="formData.lunch" btn-radio=false>NO</button>
+            </div>
+          </div>
+        </div>
 
-      </ks-swiper-container>
-      <!--radio buttons md-swipe-up="onSwipeUp()" md-swipe-down="onSwipeDown()"-->
+      </ks-swiper-slide>
+      <ks-swiper-slide>
 
-    </div>
-    <div class="modal-footer">
-      <div class="row">
-        <span class="scroll-down">
-          <i class="glyphicon glyphicon-chevron-down"></i>
-        </span>
-      </div>
-      <div class="row">
-        <button type="button" class="btn btn-primary" id="addButton" data-loading-text="Sending..." ng-click="addSurvey()">Send results</button>
-      </div>
-    </div>
+        <!-- star rating -->
+        <div>
+          <label>
+            How likely would you be to recommend this application to a friend or colleague? (Star Rating)
+            <br />
+            <small>(0 is not at all likely, 10 is extremely likely)</small>
+          </label>
+          <div class="form-group">
+            <div star-rating rating-value="formData.rating" max="10" on-rating-selected="updateRating(rating)" readonly="false"></div>
+          </div>
+        </div>
+
+      </ks-swiper-slide>
+      <ks-swiper-slide>
+        <!-- textarea -->
+        <div>
+          <label>Comments/Suggestions (Textarea)</label>
+          <div class="form-group">
+            <textarea class="form-control" rows="2" ng-model="formData.comment"></textarea>
+          </div>
+        </div>
+      </ks-swiper-slide>
+
+    </ks-swiper-container>
+    <!--radio buttons md-swipe-up="onSwipeUp()" md-swipe-down="onSwipeDown()"-->
+
+  </div>
+
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <span class="scroll-down">
+      <i class="glyphicon glyphicon-chevron-down"></i>
+    </span>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12 text-center">
+    <button type="button" class="btn btn-primary" id="addButton" data-loading-text="Sending..." ng-click="addSurvey()">Send results</button>
+  </div>
+</div>

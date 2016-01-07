@@ -5,7 +5,7 @@
  * @module myApp/controllers
  */
  // var app = angular.module("myApp.controllers", ["ngRoute", "ngMaterial"]);
- var app = angular.module("myApp.controllers", ["ngRoute","ksSwiper"]);
+ var app = angular.module("myApp.controllers", ["ngRoute"]);
 
  // Survey controller
  app.controller("welcomeCtrl", ["$scope", "FBURL", "$firebaseArray", "$location",
@@ -61,7 +61,7 @@ app.controller("surveyCtrl", ["$scope", "FBURL", "$firebaseArray",
     $scope.onReadySwiper = function (swiper) {
 
       swiper.on('onReachEnd',function(){
-        console.log('last question');
+        //console.log('last question');
         $scrollDownHint.hide();
         $btn.show();
       })
