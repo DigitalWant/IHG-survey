@@ -17,7 +17,10 @@ app.config(["$routeProvider",
             templateUrl: "partials/survey.html",
             controller: "surveyCtrl"
         });
-
+        $routeProvider.when("/welcome", {
+            templateUrl: "partials/welcome.html",
+            controller: "welcomeCtrl"
+        });
         $routeProvider.when("/login", {
             templateUrl: "partials/login.html",
             controller: "loginCtrl"
@@ -38,7 +41,7 @@ app.config(["$routeProvider",
             }
         });
 
-        $routeProvider.otherwise({redirectTo: "/survey"});
+        $routeProvider.otherwise({redirectTo: "/welcome"});
 
     }
 ]);

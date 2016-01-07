@@ -12,9 +12,9 @@ app.value("version", "1.0.1");
 // re-usable factory that generates the $firebaseAuth instance
 app.factory("Auth", ["$firebaseAuth", "FBURL",
   function($firebaseAuth, FBURL) {
-      
+
     var ref = new Firebase(FBURL);
     return $firebaseAuth(ref);
-    
+
   }
 ]);

@@ -5,14 +5,44 @@
  * @module myApp/controllers
  */
  // var app = angular.module("myApp.controllers", ["ngRoute", "ngMaterial"]);
- var app = angular.module("myApp.controllers", ["ngRoute"]);
+ var app = angular.module("myApp.controllers", ["ngRoute","ksSwiper"]);
 
+ // Survey controller
+ app.controller("welcomeCtrl", ["$scope", "FBURL", "$firebaseArray", "$location",
+ //function($scope, FBURL, $firebaseArray, $ngMaterial) {
+   function($scope, FBURL, $firebaseArray,$location) {
+
+     var ref = new Firebase(FBURL);
+
+
+     // create a synchronized array
+     $scope.surveys = $firebaseArray(ref);
+     // timestamp
+     $scope.timestamp = new Date().getTime();
+
+     // hide success information/alert
+     $scope.successInfo = false;
+
+     // open survey modal dialog
+     $scope.takeSurvey = function() {
+       $("#tnc").modal("show");
+     };
+
+     $scope.go = function ( path ) {
+         $location.path("/survey");
+     };
+   }
+ ]);
 // Survey controller
 app.controller("surveyCtrl", ["$scope", "FBURL", "$firebaseArray",
 //function($scope, FBURL, $firebaseArray, $ngMaterial) {
   function($scope, FBURL, $firebaseArray) {
 
+
     var ref = new Firebase(FBURL);
+    var $btn = $("#addButton");
+    var $scrollDownHint = $(".scroll-down");
+    $btn.hide();
     // create a synchronized array
     $scope.surveys = $firebaseArray(ref);
     // timestamp
@@ -24,29 +54,28 @@ app.controller("surveyCtrl", ["$scope", "FBURL", "$firebaseArray",
     // open survey modal dialog
     $scope.takeSurvey = function() {
       $("#tnc").modal("show");
-      $("#tnc").on('hidden.bs.modal',function(){
-        $("#survey").modal("show");
-      })
     };
-    $scope.surveyStart = function() {
 
-        //$("#survey").modal("show");
-    }
-    // console.log($scope);
-    //
-    //
-    //     $scope.onSwipeLeft = function(ev) {
-    //       alert('You swiped left!!');
-    //     };
-    //     $scope.onSwipeRight = function(ev) {
-    //       alert('You swiped right!!');
-    //     };
-    //     $scope.onSwipeUp = function(ev) {
-    //       alert('You swiped up!!');
-    //     };
-    //     $scope.onSwipeDown = function(ev) {
-    //       alert('You swiped down!!');
-    //     };
+    $scope.swiper = {};
+
+    $scope.onReadySwiper = function (swiper) {
+
+      swiper.on('onReachEnd',function(){
+        console.log('last question');
+        $scrollDownHint.hide();
+        $btn.show();
+      })
+      swiper.on('onSlideChangeStart', function (swiper) {
+        //console.log('slideChangeStart',swiper.index);
+        //$scrollDownHint.show();
+        if(swiper.activeIndex+1!=swiper.slides.length){
+          $scrollDownHint.show();
+            $btn.hide();
+          }
+      });
+    };
+
+
       // store data in this object
       // and set default values
     $scope.formData = {
@@ -78,17 +107,22 @@ app.controller("surveyCtrl", ["$scope", "FBURL", "$firebaseArray",
       if ($scope.formData.name) {
 
         // change button to loading state
-        var $btn = $("#addButton").button("loading");
+        $btn.button("loading");
 
         // push data to Firebase
         $scope.surveys.$add($scope.formData).then(function() {
           // dismiss survey modal dialog
           $("#survey").modal("hide");
           // reset button loading state
-          $btn.button("reset");
+          // $btn.button("reset");
+          $btn.button("reset").hide();
           // show success information/alert
           $scope.successInfo = true;
+
+          $(".swiper-container").hide();
+
         });
+
       } else {
         alert("Please input the name.");
       }
@@ -147,19 +181,11 @@ app.controller("resultCtrl", ["$scope", "FBURL", "$firebaseArray",
     $scope.results = $firebaseArray(ref);
   }
 ]);
-// app.controller("demoSwipeCtrl", ["$scope",
-//   function($scope) {
-//     $scope.onSwipeLeft = function(ev) {
-//       alert('You swiped left!!');
-//     };
-//     $scope.onSwipeRight = function(ev) {
-//       alert('You swiped right!!');
-//     };
-//     $scope.onSwipeUp = function(ev) {
-//       alert('You swiped up!!');
-//     };
-//     $scope.onSwipeDown = function(ev) {
-//       alert('You swiped down!!');
-//     };
-//   }
-// ]);
+
+
+// angular.module('swiperApp')
+//   .controller('TestCtrl', function($scope){
+//
+//
+//
+//   });

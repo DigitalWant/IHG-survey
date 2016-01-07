@@ -84,4 +84,24 @@ angular.module("myApp.directives", ["ngRoute"])
                 });
             }
         };
-    });
+    })
+    .directive('setquestionheight', function ($window) {
+
+    return {
+        restrict: 'A',
+
+        link: function (scope, elem, attrs) {
+          var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
+          var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
+          console.log(w,h);
+
+            var winHeight = $window.innerHeight;
+
+            var headerHeight = attrs.banner ? attrs.banner : 0;
+
+            console.log(elem);
+
+            elem.css('height', h*0.45+'px');
+        }
+    };
+  });
