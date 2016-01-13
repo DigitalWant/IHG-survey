@@ -1,5 +1,6 @@
 <!doctype html>
-<html class="no-js" lang=""  ng-app="myApp">
+<html class="no-js" lang="" ng-app="myApp">
+
 <head>
   <meta charset="utf-8">
   <meta name="description" content="">
@@ -18,9 +19,8 @@
   <!-- endbuild -->
 
   <!-- build:css styles/main.css -->
-  <link rel="stylesheet" href="styles/main.css">
   <link rel="stylesheet" href="/bower_components/swiper/dist/css/swiper.css">
-
+  <link rel="stylesheet" href="styles/main.css">
   <!-- endbuild -->
   <!-- build:js scripts/vendor/angular-all.js -->
   <script src="/bower_components/angular/angular.js"></script>
@@ -53,16 +53,17 @@
         </a>
       </div>
 
-              <div class="collapse navbar-collapse navbar-ex1-collapse">
-                  <ul class="nav navbar-nav">
-                      <li ng-class="{active: isActive('/survey')}"><a href="#/survey">Take the Survey</a></li>
-                      <li ng-class="{active: isActive('/result')}" ng-show="authData"><a href="#/result">Survey Result</a></li>
-                  </ul>
-                  <ul class="nav navbar-nav navbar-right">
-                      <li ng-hide="authData" class="active"><a href="#/login">Login</a></li>
-                      <li ng-show="authData"><a href ng-click="logout()">Logout</a></li>
-                  </ul>
-              </div> <!--/.navbar-collapse -->
+      <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <ul class="nav navbar-nav">
+          <li ng-class="{active: isActive('/survey')}"><a href="#/survey">Take the Survey</a></li>
+          <li ng-class="{active: isActive('/result')}" ng-show="authData"><a href="#/result">Survey Result</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li ng-hide="authData" class="active"><a href="#/login">Login</a></li>
+          <li ng-show="authData"><a href ng-click="logout()">Logout</a></li>
+        </ul>
+      </div>
+      <!--/.navbar-collapse -->
     </div>
     <!-- /.container -->
   </nav>

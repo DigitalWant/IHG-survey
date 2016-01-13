@@ -23,20 +23,27 @@ angular.module("myApp.directives", ["ngRoute",'ksSwiper'])
             require: "ngModel",
             link: function (scope, element, attrs, ngModelCtrl) {
 
+
                 //model -> UI
                 ngModelCtrl.$render = function () {
-                    element.toggleClass(activeClass, angular.equals(ngModelCtrl.$modelValue, scope.$eval(attrs.btnRadio)));
+                    element.toggleClass(activeClass, angular.equals(ngModelCtrl.$modelValue, attrs.btnRadio));
+                  //  console.log(element,ngModelCtrl.$modelValue,scope.$eval(attrs.btnRadio),attrs.btnRadio);
+
                 };
 
-                //ui->model
+                // ui->model
                 element.bind(toggleEvent, function () {
                     if (!element.hasClass(activeClass)) {
                         scope.$apply(function () {
-                            ngModelCtrl.$setViewValue(scope.$eval(attrs.btnRadio));
+                            ngModelCtrl.$setViewValue(attrs.btnRadio);
                             ngModelCtrl.$render();
                         });
                     }
+                    //console.log(element);
+
                 });
+
+
             }
         };
     }])
@@ -90,11 +97,15 @@ angular.module("myApp.directives", ["ngRoute",'ksSwiper'])
         restrict:'AE',
         replace:true,
         link: function (scope, elem, attrs) {
-// scope.swipe.startAutoplay();
+          // scope.swipe.startAutoplay();
           //console.log(scope);
           var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
           elem.children('.swiper-container').css({
-          'height':h*0.45+'px'});
+          'height':h*0.5+'px'});
+
+
+
+
         }
       }
     });

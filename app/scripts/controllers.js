@@ -12,16 +12,15 @@
  //function($scope, FBURL, $firebaseArray, $ngMaterial) {
    function($scope, FBURL, $firebaseArray,$location) {
 
-     var ref = new Firebase(FBURL);
-
+    //  var ref = new Firebase(FBURL);
 
      // create a synchronized array
-     $scope.surveys = $firebaseArray(ref);
+    //  $scope.surveys = $firebaseArray(ref);
      // timestamp
-     $scope.timestamp = new Date().getTime();
+    //  $scope.timestamp = new Date().getTime();
 
      // hide success information/alert
-     $scope.successInfo = false;
+    //  $scope.successInfo = false;
 
      // open survey modal dialog
      $scope.takeSurvey = function() {
@@ -38,10 +37,10 @@ app.controller("surveyCtrl", ["$scope", "FBURL", "$firebaseArray",
 //function($scope, FBURL, $firebaseArray, $ngMaterial) {
   function($scope, FBURL, $firebaseArray) {
 
-
     var ref = new Firebase(FBURL);
     var $btn = $("#addButton");
     var $scrollDownHint = $(".scroll-down");
+    var $scrollIndex = $(".scrollIndex");
     $btn.hide();
     // create a synchronized array
     $scope.surveys = $firebaseArray(ref);
@@ -51,14 +50,29 @@ app.controller("surveyCtrl", ["$scope", "FBURL", "$firebaseArray",
     // hide success information/alert
     $scope.successInfo = false;
 
-    // open survey modal dialog
-    $scope.takeSurvey = function() {
-      $("#tnc").modal("show");
-    };
 
+    //$("#contactInfo").modal("show");
+
+    //debug
+    $("#travel").modal("show");
+
+    $scope.openTravelPrefer = function(){
+      $("#travel").unbind('hidden');
+      $("#travel").modal("show");
+    }
+    $scope.openDailyPrefer = function(){
+      $("#daily").modal("show");
+    }
     $scope.swiper = {};
+    $scope.preferReward = function(option){
 
-    $scope.onReadySwiper = function (swiper) {
+      if ( $scope.formData.preferReward == 'both') {
+        return true;
+      } else {
+        return option == $scope.formData.preferReward;
+      }
+    }
+    $scope.onReadySurvey = function (swiper) {
 
       swiper.on('onReachEnd',function(){
         //console.log('last question');
@@ -68,27 +82,41 @@ app.controller("surveyCtrl", ["$scope", "FBURL", "$firebaseArray",
       swiper.on('onSlideChangeStart', function (swiper) {
         //console.log('slideChangeStart',swiper.index);
         //$scrollDownHint.show();
-        if(swiper.activeIndex+1!=swiper.slides.length){
+        if (swiper.activeIndex+1==3) {
+
+          if ($scope.formData.preferReward=="travel"){
+            $("#travel").unbind('hidden');
+            $("#travel").modal("show");
+          }
+          if ($scope.formData.preferReward=="daily"){
+            $("#daily").modal("show");
+
+          }
+          if ($scope.formData.preferReward=="both"){
+            $("#travel").modal("show");
+            $("#travel").on('hidden.bs.modal',function(e){
+              $("#daily").modal("show");
+            });
+          }
+        }
+        if(swiper.activeIndex+1<swiper.slides.length){
           $scrollDownHint.show();
             $btn.hide();
+            $scrollIndex.text(swiper.activeIndex+1);
           }
       });
     };
 
-
       // store data in this object
       // and set default values
     $scope.formData = {
-      "name": "Your Name",
-      "age": "30-",
-      "colors": {
-        "red": false,
-        "blue": true,
-        "green": false
-      },
-      "lunch": true,
-      "rating": 5,
-      "comment": "Thank you.",
+      "name": "",
+      "memberId": "",
+      "phoneNumber": "",
+      "memberType": "",
+      "preferReward": 'travel',
+      "preferTreatment":"both",
+      "comment": "eg.vip免费送.....",
       "timestamp": $scope.timestamp
     };
 
@@ -100,11 +128,17 @@ app.controller("surveyCtrl", ["$scope", "FBURL", "$firebaseArray",
       $scope.formData.rating = rating;
     };
 
+    $scope.isTrue = function(checkOption) {
+        console.log(checkOption);
+        return $scope.formData[checkOption]; // or a more complex check
+
+    }
+
     /**
      * Add survey to Firebase database.
      */
     $scope.addSurvey = function() {
-      if ($scope.formData.name) {
+      if ($scope.formData.name || $scope.formData.memberId || $scope.formData.phoneNumber) {
 
         // change button to loading state
         $btn.button("loading");
@@ -121,10 +155,15 @@ app.controller("surveyCtrl", ["$scope", "FBURL", "$firebaseArray",
 
           $(".swiper-container").hide();
 
+        }).catch(function(error){
+          alert("请正确填写您的联系信息");
+          $("#contactInfo").modal("show");
         });
 
       } else {
-        alert("Please input the name.");
+        alert("请正确填写您的联系信息");
+        $("#contactInfo").modal("show");
+
       }
     };
 

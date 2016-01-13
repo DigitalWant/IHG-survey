@@ -1,7 +1,9 @@
 <div class="row">
   <div class="col-xs-12">
-    <h4 class="modal-title">
-      Survey Questions</h4>
+    <h4 class="modal-title text-center">
+      问题
+      <span class="scrollIndex">1</span>
+    </h4>
   </div>
 </div>
 
@@ -12,82 +14,72 @@
     <!-- success information/alert -->
     <div class="alert alert-success alert-dismissable" ng-show="successInfo">
       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      <strong>Thank you for your feedback!</strong>.
+      <strong>感谢您的时间!</strong>
     </div>
-    <ks-swiper-container initial-slide="0" loop="false" direction="vertical" show-nav-buttons="false" slides-per-view="1" space-between="0" pagination-is-active="true" pagination-clickable="false" swiper="swiper" on-ready="onReadySwiper(swiper)">
+    <ks-swiper-container initial-slide="0" loop="false" direction="vertical" show-nav-buttons="false" slides-per-view="1" space-between="0" pagination-is-active="true" pagination-clickable="false" swiper="swiper" on-ready="onReadySurvey(swiper)">
       <ks-swiper-slide>
         <div>
-          <label>what is your IHGRC member tier</label>
+          <label>请问您的IHG® 优悦会会员等级是:</label>
           <div class="form-group">
             <div class="radio">
               <label>
-                <input type="radio" name="spire" value="spire" ng-model="formData.age"> spire
+                <input type="radio" name="spire" value="spire" ng-model="formData.memberType"> 优悦会至悦精英会员
               </label>
             </div>
             <div class="radio">
               <label>
-                <input type="radio" name="platinum" value="platinum" ng-model="formData.age"> platinum
+                <input type="radio" name="platinum" value="platinum" ng-model="formData.memberType"> 优悦会白金卡精英会员
               </label>
             </div>
             <div class="radio">
               <label>
-                <input type="radio" name="gold" value="gold" ng-model="formData.age"> gold
+                <input type="radio" name="gold" value="gold" ng-model="formData.memberType"> 优悦会金卡精英会员
               </label>
             </div>
             <div class="radio">
               <label>
-                <input type="radio" name="club" value="club" ng-model="formData.age"> club
+                <input type="radio" name="club" value="club" ng-model="formData.memberType"> 优悦会俱乐部会员
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <input type="radio" name="club" value="club" ng-model="formData.memberType"> 我不确定自己目前的会员等级
               </label>
             </div>
           </div>
         </div>
       </ks-swiper-slide>
+
       <ks-swiper-slide>
-        <!-- input box -->
+        <label>作为一名精英会员（或未来您成为精英会员时），除了得到和酒店相关的优惠及服务之外，您更愿意IHG® 优悦会奉上以下哪一方面的资讯及优惠来感谢您的忠诚信赖</label>
         <div class="form-group">
-          <label>Name (Input Box)</label>
-          <input type="text" class="form-control" name="name" ng-model="formData.name">
-        </div>
-      </ks-swiper-slide>
-      <ks-swiper-slide>
-        <!-- multiSelect checkboxes -->
-        <label>Favorite Colors (MultiSelect Checkboxes)</label>
-        <div class="form-group">
-          <label class="checkbox-inline">
-            <input type="checkbox" name="favoriteColors" ng-model="formData.colors.red"> Red
-          </label>
-          <label class="checkbox-inline">
-            <input type="checkbox" name="favoriteColors" ng-model="formData.colors.blue"> Blue
-          </label>
-          <label class="checkbox-inline">
-            <input type="checkbox" name="favoriteColors" ng-model="formData.colors.green"> Green
-          </label>
+          <div class="btn-group-vertical">
+            <button type="button" class="btn btn-primary" ng-model="formData.preferReward" btn-radio='travel'><i class="glyphicon glyphicon-plane"></i> 旅行相关的</button>
+            <button type="button" class="btn btn-primary" ng-model="formData.preferReward" btn-radio='daily'><i class="glyphicon glyphicon-cutlery"></i> 日常生活相关的</button>
+            <button type="button" class="btn btn-primary" ng-model="formData.preferReward" btn-radio='both'><i class="glyphicon glyphicon-thumbs-up"></i> 两者均可</button>
+          </div>
         </div>
       </ks-swiper-slide>
       <ks-swiper-slide>
         <!-- toggle choice -->
-        <div>
-          <label>Buy Me Lunch? (Toggle Choice)</label>
-          <div class="form-group">
-            <div class="btn-group">
-              <button type="button" class="btn btn-primary" ng-model="formData.lunch" btn-radio=true>YES</button>
-              <button type="button" class="btn btn-primary" ng-model="formData.lunch" btn-radio=false>NO</button>
-            </div>
-          </div>
-        </div>
+        <label>作为一名精英会员或未来即将成为精英会员，请选出以下您认为更具价值的礼遇</label>
+
+        <button type="button" class="btn btn-primary btn-lg btn-block" ng-show="preferReward('travel')" ng-click="openTravelPrefer()"><i class="glyphicon glyphicon-plane"></i> 旅行相关的问题</button>
+        <button type="button" class="btn btn-primary btn-lg btn-block" ng-show="preferReward('daily')" ng-click="openDailyPrefer()"><i class="glyphicon glyphicon-cutlery"></i> 日常生活相关的问题</button>
 
       </ks-swiper-slide>
       <ks-swiper-slide>
-
         <!-- star rating -->
         <div>
           <label>
-            How likely would you be to recommend this application to a friend or colleague? (Star Rating)
-            <br />
-            <small>(0 is not at all likely, 10 is extremely likely)</small>
+            作为一名精英会员或未来即将成为精英会员，以下哪一类型的礼遇更吸引您：
           </label>
           <div class="form-group">
-            <div star-rating rating-value="formData.rating" max="10" on-rating-selected="updateRating(rating)" readonly="false"></div>
+            <div class="btn-group-vertical">
+              <button type="button" class="btn btn-primary" ng-model="formData.preferTreatment" btn-radio='享受精选商品或服务的专属折扣'><i class="glyphicon glyphicon-tags"></i> 享受精选商品或服务的专属折扣</button>
+              <button type="button" class="btn btn-primary" ng-model="formData.preferTreatment" btn-radio='获邀参加专属VIP活动'><i class="glyphicon glyphicon-king"></i> 获邀参加专属VIP活动</button>
+              <button type="button" class="btn btn-primary" ng-model="formData.preferTreatment" btn-radio='两者均可'><i class="glyphicon glyphicon-thumbs-up"></i> 两者均可</button>
+            </div>
           </div>
         </div>
 
@@ -95,7 +87,7 @@
       <ks-swiper-slide>
         <!-- textarea -->
         <div>
-          <label>Comments/Suggestions (Textarea)</label>
+          <label>请列出1个日常生活中，您最忠诚最喜爱的会员奖励计划（包括各类贵宾卡、俱乐部会员活动，不限行业）:</label>
           <div class="form-group">
             <textarea class="form-control" rows="2" ng-model="formData.comment"></textarea>
           </div>
@@ -119,4 +111,277 @@
   <div class="col-xs-12 text-center">
     <button type="button" class="btn btn-primary" id="addButton" data-loading-text="Sending..." ng-click="addSurvey()">Send results</button>
   </div>
+</div>
+
+<div class="modal fade" id='contactInfo' tabindex="-1" role="dialog" aria-labelledby="survey" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">联系信息</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-horizontal">
+          <div class="form-group">
+            <label class="col-xs-4 control-label text-right">姓名</label>
+            <div class="col-xs-8">
+              <input type="text" class="form-control" name="name" ng-model="formData.name">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-xs-4 control-label text-right">会员编号</label>
+            <div class="col-xs-8">
+              <input type="text" class="form-control" name="memberId" ng-model="formData.memberId">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-xs-4 control-label text-right">手机号码</label>
+            <div class="col-xs-8">
+              <input type="text" class="form-control" name="phoneNumber" ng-model="formData.phoneNumber">
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-lg " data-dismiss="modal" ng-click="go('/survey');">
+          <span class="glyphicon glyphicon-copy" aria-hidden="true"></span> 开始问卷</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id='travel' tabindex="1" role="dialog" aria-labelledby="travel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">3-A 旅行相关的（多选）</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form">
+          <div class="form-group">
+            <label class="col-xs-12 control-label">
+              <input type="checkbox" ng-model="formData.travelAirline"> 航空</label>
+            <div class="col-xs-12" ng-show="formData.travelAirline">
+              <div class="radio">
+                <label>
+                  <input type="radio" name="travelAirline" ng-value="true" ng-model="formData.travelCustAirline"> 您特别钟爱的品牌是
+                </label>
+                <input type="text" class="form-control" ng-show="formData.travelCustAirline" ng-model="formData.travelCustAirlineText">
+              </div>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="travelAirline" ng-value="false" ng-model="formData.travelCustAirline"> 无指定品牌
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-xs-12 control-label">
+              <input type="checkbox" ng-model="formData.travelRailway"> 铁路</label>
+            <div class="col-xs-12" ng-show="formData.travelRailway">
+              <div class="radio">
+                <label>
+                  <input type="radio" name="travelRailway" ng-value="true" ng-model="formData.travelCustRailway"> 您特别钟爱的品牌是
+                </label>
+                <input type="text" class="form-control" ng-show="formData.travelCustRailway" ng-model="formData.travelCustRailwayText">
+              </div>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="travelRailway" ng-value="false" ng-model="formData.travelCustRailway"> 无指定品牌
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-xs-12 control-label">
+              <input type="checkbox" ng-model="formData.travelRentCar"> 租车/用车</label>
+            <div class="col-xs-12" ng-show="formData.travelRentCar">
+              <div class="radio">
+                <label>
+                  <input type="radio" name="travelRentCar" ng-value="true" ng-model="formData.travelCustRentCar"> 您特别钟爱的品牌是
+                </label>
+                <input type="text" class="form-control" ng-show="formData.travelCustRentCar" ng-model="formData.travelCustRentCarText">
+              </div>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="travelRentCar" ng-value="false" ng-model="formData.travelCustRentCar"> 无指定品牌
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-xs-12 control-label">
+              <input type="checkbox" ng-model="formData.travelInsuranceType"> 旅行保险类型</label>
+            <div class="col-xs-12" ng-show="formData.travelInsuranceType">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="travelInsuranceType" ng-value="delay" ng-model="formData.travelInsuranceTypeOptions.delay"> 航班延误险
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="travelInsuranceType" ng-value="finance" ng-model="formData.travelInsuranceTypeOptions.finance"> 旅行财险
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="travelInsuranceType" ng-value="other" ng-model="formData.travelInsuranceTypeOptions.other"> 其他
+                </label>
+                <input type="text" class="form-control" ng-show="formData.travelInsuranceTypeOptions.other" ng-model="formData.travelInsuranceTypeText">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-xs-12 control-label">
+              <input type="checkbox" ng-model="formData.travelInsuranceBrand"> 旅行保险品牌</label>
+            <div class="col-xs-12" ng-show="formData.travelInsuranceBrand">
+              <div class="radio">
+                <label>
+                  <input type="radio" name="travelInsuranceBrand" ng-value="true" ng-model="formData.travelCustInsuranceBrand"> 您特别钟爱的品牌是
+                </label>
+                <input type="text" class="form-control" ng-show="formData.travelCustInsuranceBrand" ng-model="formData.travelCustInsuranceBrandText">
+              </div>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="travelInsuranceBrand" ng-value="false" ng-model="formData.travelCustInsuranceBrand"> 无指定品牌
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-xs-12 control-label">
+              <input type="checkbox" ng-model="formData.travelAccessoryType"> 旅行相关商品类型</label>
+            <div class="col-xs-12" ng-show="formData.travelAccessoryType">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="travelAccessoryType" ng-value="bag" ng-model="formData.travelAccessoryTypeOptions.bag"> 旅行箱
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="travelAccessoryType" ng-value="other" ng-model="formData.travelAccessoryTypeOptions.other"> 其他
+                </label>
+                <input type="text" class="form-control" ng-show="formData.travelAccessoryTypeOptions.other" ng-model="formData.travelAccessoryTypeText">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-xs-12 control-label">
+              <input type="checkbox" ng-model="formData.travelAccessoryBrand"> 旅行相关商品品牌</label>
+            <div class="col-xs-12" ng-show="formData.travelAccessoryBrand">
+              <div class="radio">
+                <label>
+                  <input type="radio" name="travelAccessoryBrand" ng-value="true" ng-model="formData.travelCustAccessoryBrand"> 您特别钟爱的品牌是
+                </label>
+                <input type="text" class="form-control" ng-show="formData.travelCustAccessoryBrand" ng-model="formData.travelCustAccessoryBrandText">
+              </div>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="travelAccessoryBrand" ng-value="false" ng-model="formData.travelCustAccessoryBrand"> 无指定品牌
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-xs-12 control-label">
+              <input type="checkbox" ng-model="formData.travelRelaxAccessoryType"> 休闲旅行相关商品类型</label>
+            <div class="col-xs-12" ng-show="formData.travelRelaxAccessoryType">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="travelRelaxAccessoryType" ng-value="camera" ng-model="formData.travelRelaxAccessoryTypeOptions.camera"> 相机
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="travelRelaxAccessoryType" ng-value="outdoor" ng-model="formData.travelRelaxAccessoryTypeOptions.outdoor"> 户外装备
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="travelRelaxAccessoryType" ng-value="other" ng-model="formData.travelRelaxAccessoryTypeOptions.other"> 其他
+                </label>
+                <input type="text" class="form-control" ng-show="formData.travelRelaxAccessoryTypeOptions.other" ng-model="formData.travelRelaxAccessoryTypeText">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-xs-12 control-label">
+              <input type="checkbox" ng-model="formData.travelRelaxAccessoryBrand"> 休闲旅行相关商品品牌</label>
+            <div class="col-xs-12" ng-show="formData.travelRelaxAccessoryBrand">
+              <div class="radio">
+                <label>
+                  <input type="radio" name="travelRelaxAccessoryBrand" ng-value="true" ng-model="formData.travelRelaxCustAccessoryBrand"> 您特别钟爱的品牌是
+                </label>
+                <input type="text" class="form-control" ng-show="formData.travelRelaxCustAccessoryBrand" ng-model="formData.travelRelaxCustAccessoryBrandText">
+              </div>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="travelRelaxAccessoryBrand" ng-value="false" ng-model="formData.travelRelaxCustAccessoryBrand"> 无指定品牌
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-xs-12 control-label">
+              <input type="checkbox" ng-model="formData.travelOther"> 其他</label>
+            <div class="col-xs-12" ng-show="formData.travelOther">
+              <input type="text" class="form-control" name="travelCustOther" ng-model="formData.travelCustOther">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-xs-12 control-label">
+              <input type="checkbox"> 以上皆可</label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" ng-click="go('/survey');">
+          <span class="glyphicon glyphicon-check" aria-hidden="true"></span> 继续</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id='daily' tabindex="2" role="dialog" aria-labelledby="daily" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">3-B 日常生活相关的（多选）</h4>
+      </div>
+      <div class="modal-body">
+        <!--
+        B.	日常生活相关的（多选）：
+        □  奢侈品
+        [请告知您： □特别钟爱的类型或品牌是________     □无指定类型及品牌]
+        □  日常消费类（如：汽车加油卡、手机充值等）
+        [请告知您钟爱的类型(可多选)：□汽油卡 □手机卡 □其他_____;]
+        □  美食与健康生活
+        [请告知您钟爱的类型(可多选)：□美食 □健身 □其他____;]
+        □  娱乐休闲
+        [请告知您钟爱的类型(可多选)：□电影 □演唱会 □音乐会 □展览 □其他演出_____;]
+        □  自我提升（如：MBA课程等）
+        [请告知您钟爱的类型（可多选）：□MBA □外语 □理财 □其他_____;]
+        □  其他，请注明________
+        [请告知您： □特别钟爱的类型或品牌是________  □无指定类型及品牌]
+        □  以上皆可
+
+
+        -->
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-lg " data-dismiss="modal" ng-click="go('/survey');">
+          <span class="glyphicon glyphicon-check" aria-hidden="true"></span> 继续</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
 </div>

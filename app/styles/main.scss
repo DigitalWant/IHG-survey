@@ -1,5 +1,6 @@
 $icon-font-path: '../fonts/';
-
+$brand-primary:#e25f27;
+$brand-success:#d71921;
 // bower:scss
 @import "bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
 // endbower
@@ -130,7 +131,7 @@ body {
   overflow-y: auto;
 }
 .modal-body {
-  overflow: hidden;
+  overflow: auto;
 }
 .modal-footer{
   position: relative;
@@ -173,4 +174,8 @@ body {
   -moz-animation: scroll-down-anim 1s infinite;
   -o-animation: scroll-down-anim 1s infinite;
   animation: scroll-down-anim 1s infinite;
+}
+
+.swiper-pagination-bullet-active {
+  background:#e25f27;
 }

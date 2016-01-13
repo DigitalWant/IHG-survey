@@ -5,6 +5,8 @@
         <tr>
             <th>Time</th>
             <th>Name</th>
+            <th>Member ID</th>
+            <th>Phone Number</th>
             <th>Age</th>
             <th>Colors</th>
             <th>Lunch?</th>
@@ -16,6 +18,9 @@
         <tr ng-repeat="result in results | orderBy: '-timestamp'">
             <td>{{result.timestamp | date:"MM/dd/yyyy @ h:mma"}}</td>
             <td>{{result.name}}</td>
+            <td>{{result.memberId}}</td>
+            <td>{{result.phoneNumber}}</td>
+
             <td>
                 <span ng-if = "result.age === '30-'">Less than 30</span>
                 <span ng-if = "result.age === '30+'">30 and above</span>
