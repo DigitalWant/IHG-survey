@@ -179,3 +179,36 @@ body {
 .swiper-pagination-bullet-active {
   background:#e25f27;
 }
+.swiper-container-vertical > .swiper-pagination  {
+  bottom: 0px
+}
+.swiper-slide{
+  padding-right: 25px;
+}
+
+.highlight {
+  .has-feedback {
+    .form-control-feedback {
+      display: none;
+    }
+    &.has-success{
+      .glyphicon-ok {display: block;}
+    }
+    &.has-error {
+      .glyphicon-remove {display: block;}
+
+    }
+  }
+}
+.has-feedback {
+  .form-control-feedback {
+    display: none;
+  }
+  &.has-success{
+    .glyphicon-ok {display: block;}
+  }
+  &.has-error {
+    .glyphicon-remove {display: none;}
+
+  }
+}

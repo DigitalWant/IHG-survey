@@ -101,7 +101,7 @@ angular.module("myApp.directives", ["ngRoute",'ksSwiper'])
           //console.log(scope);
           var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
           elem.children('.swiper-container').css({
-          'height':h*0.5+'px'});
+          'height':h*0.47+'px'});
 
 
 
