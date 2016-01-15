@@ -4,7 +4,9 @@
       问题
       <span class="scrollIndex">1</span>
     </h4>
-
+    <div class="alert alert-danger" role="alert" ng-hide="formData.comment!=''" >
+      <a href="#" class="alert-link">请将问卷填写完整，让IHG更懂你。</a>
+    </div>
   </div>
 </div>
 
@@ -15,12 +17,18 @@
     <!-- success information/alert -->
     <div class="alert alert-success alert-dismissable" ng-show="successInfo">
       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      <strong>感谢您的时间!</strong>
+      <h4>感谢你参与IHG® 优悦会问卷调研！</h4>
+      <hr>
+      <p>
+        现在就关注“IHG优悦会”微信号，第一时间了解最新优惠信息，让IHG与你更亲近。
+      </p>
+      <hr>
     </div>
     <ks-swiper-container initial-slide="0" loop="false" direction="vertical" show-nav-buttons="false" slides-per-view="1" space-between="0" pagination=".test" pagination-is-active="true" pagination-clickable="false" swiper="swiper" on-ready="onReadySurvey(swiper)">
       <ks-swiper-slide>
         <div>
           <label>请问您的IHG® 优悦会会员等级是:</label>
+
           <div class="form-group">
             <div class="radio">
               <label>
@@ -44,7 +52,7 @@
             </div>
             <div class="radio">
               <label>
-                <input type="radio" name="club" value="club" ng-model="formData.memberType"> 我不确定自己目前的会员等级
+                <input type="radio" name="club" value="not sure" ng-model="formData.memberType"> 我不确定自己目前的会员等级
               </label>
             </div>
           </div>
@@ -54,11 +62,29 @@
       <ks-swiper-slide>
         <label>作为一名精英会员（或未来您成为精英会员时），除了得到和酒店相关的优惠及服务之外，您更愿意IHG® 优悦会奉上以下哪一方面的资讯及优惠来感谢您的忠诚信赖</label>
         <div class="form-group">
-          <div class="btn-group-vertical center-block">
+
+          <div class="radio">
+            <label>
+              <input type="radio" name="club" value="travel" ng-model="formData.preferReward"> 旅行相关的
+            </label>
+          </div>
+          <div class="radio">
+            <label>
+              <input type="radio" name="club" value="daily" ng-model="formData.preferReward"> 日常生活相关的
+            </label>
+          </div>
+          <div class="radio">
+            <label>
+              <input type="radio" name="club" value="both" ng-model="formData.preferReward"> 两者均可
+            </label>
+          </div>
+
+<!--
             <button type="button" class="btn btn-primary" ng-model="formData.preferReward" btn-radio='travel'><i class="glyphicon glyphicon-plane"></i> 旅行相关的</button>
             <button type="button" class="btn btn-primary" ng-model="formData.preferReward" btn-radio='daily'><i class="glyphicon glyphicon-cutlery"></i> 日常生活相关的</button>
-            <button type="button" class="btn btn-primary" ng-model="formData.preferReward" btn-radio='both'><i class="glyphicon glyphicon-thumbs-up"></i> 两者均可</button>
-          </div>
+            <button type="button" class="btn btn-primary" ng-model="formData.preferReward" btn-radio='both'><i class="glyphicon glyphicon-thumbs-up"></i> 两者均可</button> -->
+
+
         </div>
       </ks-swiper-slide>
       <ks-swiper-slide>
@@ -76,11 +102,28 @@
             作为一名精英会员或未来即将成为精英会员，以下哪一类型的礼遇更吸引您：
           </label>
           <div class="form-group">
-            <div class="btn-group-vertical center-block">
+
+            <div class="radio">
+              <label>
+                <input type="radio" name="club" value="享受精选商品或服务的专属折扣" ng-model="formData.preferTreatment"> 享受精选商品或服务的专属折扣
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <input type="radio" name="club" value="获邀参加专属VIP活动" ng-model="formData.preferTreatment"> 获邀参加专属VIP活动
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <input type="radio" name="club" value="两者均可" ng-model="formData.preferTreatment"> 两者均可
+              </label>
+            </div>
+
+            <!-- <div class="btn-group-vertical center-block">
               <button type="button" class="btn btn-primary" ng-model="formData.preferTreatment" btn-radio='享受精选商品或服务的专属折扣'><i class="glyphicon glyphicon-tags"></i> 享受精选商品或服务的专属折扣</button>
               <button type="button" class="btn btn-primary" ng-model="formData.preferTreatment" btn-radio='获邀参加专属VIP活动'><i class="glyphicon glyphicon-king"></i> 获邀参加专属VIP活动</button>
               <button type="button" class="btn btn-primary" ng-model="formData.preferTreatment" btn-radio='两者均可'><i class="glyphicon glyphicon-thumbs-up"></i> 两者均可</button>
-            </div>
+            </div> -->
           </div>
         </div>
       </ks-swiper-slide>
@@ -101,23 +144,24 @@
 </div>
 <div class="row">
   <div class="col-xs-12">
-    <span class="scroll-down">
+    <span class="scroll-down" ng-show="formData.memberType!=''">
       <i class="glyphicon glyphicon-chevron-down"></i>
     </span>
   </div>
 </div>
-<div class="row">
+<div class="row" ng-show="formData.comment!=''">
   <div class="col-xs-12 text-center">
     <button type="button" class="btn btn-primary" id="addButton" data-loading-text="Sending..." ng-click="addSurvey()"> <i class="glyphicon glyphicon-send"></i> 完成问卷!</button>
   </div>
 </div>
-
 <div class="modal fade" id='contactInfo' tabindex="-1" role="dialog" aria-labelledby="survey" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">联系信息</h4>
+        <p class="modal-title">
+          <b>留下你的联系方式，即可参与幸运抽奖</b>
+          </p>
       </div>
       <div class="modal-body">
         <div class="form-horizontal">
@@ -165,7 +209,7 @@
   </div>
   <!-- /.modal-dialog -->
 </div>
-<div class="modal fade" id='travel' tabindex="1" role="dialog" aria-labelledby="travel" aria-hidden="true">
+<div class="modal fade" id='travel' tabindex="1" role="dialog" aria-labelledby="travel" aria-hidden="true" data-backdrop="static">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -396,7 +440,7 @@
   </div>
   <!-- /.modal-dialog -->
 </div>
-<div class="modal fade" id='daily' tabindex="2" role="dialog" aria-labelledby="daily" aria-hidden="true">
+<div class="modal fade" id='daily' tabindex="2" role="dialog" aria-labelledby="daily" aria-hidden="true" data-backdrop="static">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">

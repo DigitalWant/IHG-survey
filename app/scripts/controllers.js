@@ -4,45 +4,45 @@
  * Controllers module which defines controllers.
  * @module myApp/controllers
  */
- // var app = angular.module("myApp.controllers", ["ngRoute", "ngMaterial"]);
- var app = angular.module("myApp.controllers", ["ngRoute"]);
+// var app = angular.module("myApp.controllers", ["ngRoute", "ngMaterial"]);
+var app = angular.module("myApp.controllers", ["ngRoute"]);
 
- // Survey controller
- app.controller("welcomeCtrl", ["$scope", "FBURL", "$firebaseArray", "$location",
- //function($scope, FBURL, $firebaseArray, $ngMaterial) {
-   function($scope, FBURL, $firebaseArray,$location) {
+// Survey controller
+app.controller("welcomeCtrl", ["$scope", "FBURL", "$firebaseArray", "$location",
+  //function($scope, FBURL, $firebaseArray, $ngMaterial) {
+  function($scope, FBURL, $firebaseArray, $location) {
 
     //  var ref = new Firebase(FBURL);
 
-     // create a synchronized array
+    // create a synchronized array
     //  $scope.surveys = $firebaseArray(ref);
-     // timestamp
+    // timestamp
     //  $scope.timestamp = new Date().getTime();
 
-     // hide success information/alert
+    // hide success information/alert
     //  $scope.successInfo = false;
 
-      $("#tnc").on("shown.bs.modal",function(){
+    $("#tnc").on("show.bs.modal", function() {
 
-        var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-        var modalBodyHeight = h - $('.modal-header').outerHeight()-130;
-         $('.modal-body').height(modalBodyHeight);
-        //console.log(modalBodyHeight);
-      });
+      var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+      var modalBodyHeight = h - 90 - 130;
+      $('.modal-body').height(modalBodyHeight);
+      //console.log(modalBodyHeight);
+    });
 
-     // open survey modal dialog
-     $scope.takeSurvey = function() {
-       $("#tnc").modal("show");
-     };
+    // open survey modal dialog
+    $scope.takeSurvey = function() {
+      $("#tnc").modal("show");
+    };
 
-     $scope.go = function ( path ) {
-         $location.path("/survey");
-     };
-   }
- ]);
+    $scope.go = function(path) {
+      $location.path("/survey");
+    };
+  }
+]);
 // Survey controller
 app.controller("surveyCtrl", ["$scope", "FBURL", "$firebaseArray",
-//function($scope, FBURL, $firebaseArray, $ngMaterial) {
+  //function($scope, FBURL, $firebaseArray, $ngMaterial) {
   function($scope, FBURL, $firebaseArray) {
 
     var ref = new Firebase(FBURL);
@@ -53,8 +53,8 @@ app.controller("surveyCtrl", ["$scope", "FBURL", "$firebaseArray",
     var questionLength = 5;
     var question3initOpen = true;
     var swiperSlider;
-
-
+    var errorMsg = $(".alert-danger");
+    errorMsg.hide();
     $btn.hide();
     // create a synchronized array
     $scope.surveys = $firebaseArray(ref);
@@ -68,19 +68,19 @@ app.controller("surveyCtrl", ["$scope", "FBURL", "$firebaseArray",
     //$("#travel").modal("show");
 
     //debug
-    $("#contactInfo").modal("show");
+    //$("#contactInfo").modal("show");
 
-    $scope.openTravelPrefer = function(){
+    $scope.openTravelPrefer = function() {
       $("#travel").unbind('hidden');
       $("#travel").modal("show");
     }
-    $scope.openDailyPrefer = function(){
+    $scope.openDailyPrefer = function() {
       $("#daily").modal("show");
     }
     $scope.swiper = {};
-    $scope.preferReward = function(option){
+    $scope.preferReward = function(option) {
 
-      if ( $scope.formData.preferReward == 'both') {
+      if ($scope.formData.preferReward == 'both') {
         return true;
       } else {
         return option == $scope.formData.preferReward;
@@ -88,67 +88,95 @@ app.controller("surveyCtrl", ["$scope", "FBURL", "$firebaseArray",
     }
 
 
-    $scope.onReadySurvey = function (swiper,to) {
+    $scope.onReadySurvey = function(swiper, to) {
 
-      swiper.on('onReachEnd',function(){
+      swiper.on('onReachEnd', function() {
         //console.log('last question');
         $scrollDownHint.hide();
         $btn.show();
+      });
+
+
+      swiper.on('onSlideChangeEnd', function(swiper) {
+
+        //var Question3TravelAnswer = [$scope.formData.travelAirline,travelRailway,travelRentCar,travelInsurance];
+        //console.log(Question3Exp);
+
+        if ($scope.formData.memberType == "" ) {
+          swiper.slideTo(0);
+          errorMsg.show();
+        } else if ($scope.formData.preferReward == "" && swiper.activeIndex > 1) {
+          swiper.slideTo(1);
+          errorMsg.show();
+        } /*else if ($scope.formData.preferReward == "" && swiper.activeIndex > 2) {
+          //errorMsg.show();
+          console.log('chk detail travel options');
+
+
+        } */else if ($scope.formData.preferTreatment == "" && swiper.activeIndex > 3) {
+          swiper.slideTo(3);
+          errorMsg.show();
+        }
+        //console.log(Question3Exp);
+        console.log($scope.formData.comment == "");
+        if ($scope.formData.comment == "" && swiper.activeIndex > 3 ){
+          console.log('comment is empty');
+          errorMsg.show();
+
+        }
       })
-      swiper.on('onSlideChangeStart', function (swiper) {
+      swiper.on('onSlideChangeStart', function(swiper) {
         //console.log('slideChangeStart',swiper.index);
         //$scrollDownHint.show();
+        questionIndex = swiper.activeIndex + 1;
+        errorMsg.hide();
 
-        questionIndex = swiper.activeIndex+1;
-
-
-        if (questionIndex==3 && question3initOpen==true) {
+        if (questionIndex == 3 && question3initOpen == true) {
           question3initOpen = false;
-          if ($scope.formData.preferReward=="travel"){
+          if ($scope.formData.preferReward == "travel") {
             $("#travel").unbind('hidden');
             $("#travel").modal("show");
-            $("#travel").on('hidden.bs.modal',function(e){
+            $("#travel").on('hidden.bs.modal', function(e) {
               swiper.slideTo(3);
             });
           }
-          if ($scope.formData.preferReward=="daily"){
+          if ($scope.formData.preferReward == "daily") {
             $("#daily").unbind('hidden');
             $("#daily").modal("show");
-            $("#daily").on('hidden.bs.modal',function(e){
+            $("#daily").on('hidden.bs.modal', function(e) {
               swiper.slideTo(3);
             });
           }
-          if ($scope.formData.preferReward=="both"){
+          if ($scope.formData.preferReward == "both") {
             $("#travel").modal("show");
-            $("#travel").on('hidden.bs.modal',function(e){
+            $("#travel").on('hidden.bs.modal', function(e) {
               $("#daily").modal("show");
             });
-            $("#daily").on('hidden.bs.modal',function(e){
+            $("#daily").on('hidden.bs.modal', function(e) {
               swiper.slideTo(3);
             });
           }
         }
-        if(questionIndex<swiper.slides.length){
+        if (questionIndex < swiper.slides.length) {
           $scrollDownHint.show();
-            $btn.hide();
-            $scrollIndex.text(questionIndex);
-          }else if(questionIndex == swiper.slides.length) {
-            $scrollIndex.text(questionIndex);
-
-          }
+          $btn.hide();
+          $scrollIndex.text(questionIndex);
+        } else if (questionIndex == swiper.slides.length) {
+          $scrollIndex.text(questionIndex);
+        }
       });
     };
 
-      // store data in this object
-      // and set default values
+    // store data in this object
+    // and set default values
     $scope.formData = {
       "name": "",
       "memberId": "",
       "phoneNumber": "",
       "memberType": "",
-      "preferReward": 'travel',
-      "preferTreatment":"both",
-      "comment": "eg.vip免费送.....",
+      "preferReward": '',
+      "preferTreatment": "",
+      "comment": "",
       "timestamp": $scope.timestamp
     };
 
@@ -161,20 +189,20 @@ app.controller("surveyCtrl", ["$scope", "FBURL", "$firebaseArray",
     };
 
     $scope.isTrue = function(checkOption) {
-        //console.log(checkOption);
-        return $scope.formData[checkOption]; // or a more complex check
+      //console.log(checkOption);
+      return $scope.formData[checkOption]; // or a more complex check
 
     }
 
-    $scope.lastQuestion = function(){
-      //console.log(questionIndex == questionLength);
-      return questionIndex == questionLength;
-    }
-    /**
-     * Add survey to Firebase database.
-     */
+    $scope.lastQuestion = function() {
+        //console.log(questionIndex == questionLength);
+        return questionIndex == questionLength;
+      }
+      /**
+       * Add survey to Firebase database.
+       */
     $scope.addSurvey = function() {
-      if ($scope.formData.name && $scope.formData.memberId != "" && $scope.formData.phoneNumber != "" ) {
+      if ($scope.formData.name && $scope.formData.memberId != "" && $scope.formData.phoneNumber != "") {
 
         // change button to loading state
         $btn.button("loading");
@@ -195,7 +223,7 @@ app.controller("surveyCtrl", ["$scope", "FBURL", "$firebaseArray",
           $("#contactInfo").modal("hide");
 
 
-        }).catch(function(error){
+        }).catch(function(error) {
           alert("请正确填写您的联系信息");
           $("#contactInfo").modal("show");
         });
