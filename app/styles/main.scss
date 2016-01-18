@@ -121,6 +121,30 @@ ul.rating {
   width: 27%;
   height: auto;
 }
+.navbar {
+  margin-bottom: 5px;
+}
+.container {
+  h2{
+    margin-top: 10px;
+  }
+  h4{
+    margin-top: 10px;
+  }
+  hr.divider {
+    margin-bottom:10px;
+  }
+}
+.control-label {
+  line-height: 2em;
+}
+.modal-body {
+  .form-group {
+    >div{
+      padding-left: 35px;
+    }
+  }
+}
 
 body {
   padding-right: 0px !important;

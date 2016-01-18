@@ -118,7 +118,7 @@ app.controller("surveyCtrl", ["$scope", "FBURL", "$firebaseArray",
           errorMsg.show();
         }
         //console.log(Question3Exp);
-        console.log($scope.formData.comment == "");
+        //console.log($scope.formData.comment == "");
         if ($scope.formData.comment == "" && swiper.activeIndex > 3 ){
           console.log('comment is empty');
           errorMsg.show();
@@ -202,7 +202,7 @@ app.controller("surveyCtrl", ["$scope", "FBURL", "$firebaseArray",
        * Add survey to Firebase database.
        */
     $scope.addSurvey = function() {
-      if ($scope.formData.name && $scope.formData.memberId != "" && $scope.formData.phoneNumber != "") {
+      if ($scope.formData.name ) {
 
         // change button to loading state
         $btn.button("loading");
