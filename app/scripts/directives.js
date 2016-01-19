@@ -96,16 +96,16 @@ angular.module("myApp.directives", ["ngRoute",'ksSwiper'])
       return {
         restrict:'AE',
         replace:true,
-        link: function (scope, elem, attrs) {
+        link: function ($scope, elem, attrs) {
           // scope.swipe.startAutoplay();
           //console.log(scope);
           var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-          elem.children('.swiper-container').css({
-          'height':h*0.47+'px'});
-
-
-
-
+          var slideH = h - 190;
+          elem.children('.swiper-container').css({'height':slideH+'px'});
+          // $scope.$watch('formData.quiz1', function(newValue, oldValue) {
+          //   //scope.counter = scope.counter + 1;''
+          //   console.log(newValue,oldValue);
+          // });
         }
       }
     });

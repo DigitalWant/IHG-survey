@@ -25,7 +25,7 @@ app.controller("welcomeCtrl", ["$scope", "FBURL", "$firebaseArray", "$location",
     $("#tnc").on("show.bs.modal", function() {
 
       var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-      var modalBodyHeight = h - 90 - 130;
+      var modalBodyHeight = h - 90 - 136;
       $('.modal-body').height(modalBodyHeight);
       //console.log(modalBodyHeight);
     });
@@ -88,6 +88,7 @@ app.controller("surveyCtrl", ["$scope", "FBURL", "$firebaseArray",
     }
 
 
+
     $scope.onReadySurvey = function(swiper, to) {
 
       swiper.on('onReachEnd', function() {
@@ -105,9 +106,13 @@ app.controller("surveyCtrl", ["$scope", "FBURL", "$firebaseArray",
         if ($scope.formData.memberType == "" ) {
           swiper.slideTo(0);
           errorMsg.show();
+          $(swiper['container']).find('.swiper-slide-active').addClass('error-quiz')
+
         } else if ($scope.formData.preferReward == "" && swiper.activeIndex > 1) {
           swiper.slideTo(1);
           errorMsg.show();
+          $(swiper['container']).find('.swiper-slide-active').addClass('error-quiz')
+
         } /*else if ($scope.formData.preferReward == "" && swiper.activeIndex > 2) {
           //errorMsg.show();
           console.log('chk detail travel options');
@@ -116,11 +121,13 @@ app.controller("surveyCtrl", ["$scope", "FBURL", "$firebaseArray",
         } */else if ($scope.formData.preferTreatment == "" && swiper.activeIndex > 3) {
           swiper.slideTo(3);
           errorMsg.show();
+          $(swiper['container']).addClass('error-quiz')
+
         }
         //console.log(Question3Exp);
         //console.log($scope.formData.comment == "");
         if ($scope.formData.comment == "" && swiper.activeIndex > 3 ){
-          console.log('comment is empty');
+          //console.log('comment is empty');
           errorMsg.show();
 
         }
@@ -179,6 +186,7 @@ app.controller("surveyCtrl", ["$scope", "FBURL", "$firebaseArray",
       "comment": "",
       "timestamp": $scope.timestamp
     };
+
 
     /**
      * Update rating score to object.
