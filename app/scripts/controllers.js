@@ -236,7 +236,6 @@ app.controller("surveyCtrl", ["$scope", "FBURL", "$firebaseArray",
                $scrollIndex.text(questionIndex);
              }
 
-
       });
     };
 
