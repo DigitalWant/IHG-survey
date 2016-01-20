@@ -64,12 +64,6 @@ app.controller("surveyCtrl", ["$scope", "FBURL", "$firebaseArray",
     // hide success information/alert
     $scope.successInfo = false;
 
-
-    //$("#travel").modal("show");
-
-    //debug
-    //$("#contactInfo").modal("show");
-
     $scope.openTravelPrefer = function() {
       $("#travel").unbind('hidden');
       $("#travel").modal("show");
@@ -87,65 +81,132 @@ app.controller("surveyCtrl", ["$scope", "FBURL", "$firebaseArray",
       }
     }
 
+    var atLeastChecked = function(object) {
+      for (var e in object) {
+        var checkBox = object[e];
+        //console.log('loop',checkBox);
+        if (checkBox==true){
+          return true;
+        }
+      }
+      return false;
+    };
+    var subCheckboxValidation = function(categoryValue,listOptions){
+        if (categoryValue==true){
+          return atLeastChecked(listOptions)!= true;
+        } else {
+          return false;
+        }
+    };
 
+    $scope.travelValidation = function() {
+      var parentCheckStatus = [
+        $scope['travelForm']['categoryTravel-1']['$viewValue'],
+        $scope['travelForm']['categoryTravel-2']['$viewValue'],
+        $scope['travelForm']['categoryTravel-3']['$viewValue'],
+        $scope['travelForm']['categoryTravel-4']['$viewValue'],
+        $scope['travelForm']['categoryTravel-5']['$viewValue'],
+        $scope['travelForm']['categoryTravel-6']['$viewValue'],
+        $scope['travelForm']['categoryTravel-7']['$viewValue']
+      ];
+      var subCheckBox1 = [
+        $scope['travelForm']['travelInsuranceType1']['$viewValue'],
+        $scope['travelForm']['travelInsuranceType2']['$viewValue'],
+        $scope['travelForm']['travelInsuranceType3']['$viewValue']
+      ];
+      var subCheckBox2 = [
+        $scope['travelForm']['travelAccessoryType1']['$viewValue'],
+        $scope['travelForm']['travelAccessoryType2']['$viewValue'],
+        $scope['travelForm']['travelAccessoryType3']['$viewValue']
+      ];
+
+      var parentCheckboxReturn = !atLeastChecked(parentCheckStatus);
+      var subCheckBox1Return = subCheckboxValidation($scope['travelForm']['categoryTravel-4']['$viewValue'],subCheckBox1);
+      var subCheckBox2Return = subCheckboxValidation($scope['travelForm']['categoryTravel-5']['$viewValue'],subCheckBox2);
+      var dependencyReturn = $scope.travelForm.$invalid;
+      var finalReturn = dependencyReturn || parentCheckboxReturn || subCheckBox1Return || subCheckBox2Return;
+      return finalReturn;
+
+    };
+
+    $scope.dailyValidation = function() {
+      var parentCheckStatus = [
+        $scope['dailyForm']['categoryDaily-1']['$viewValue'],
+        $scope['dailyForm']['categoryDaily-2']['$viewValue'],
+        $scope['dailyForm']['categoryDaily-3']['$viewValue'],
+        $scope['dailyForm']['categoryDaily-4']['$viewValue'],
+        $scope['dailyForm']['categoryDaily-5']['$viewValue'],
+        $scope['dailyForm']['categoryDaily-6']['$viewValue'],
+        $scope['dailyForm']['categoryDaily-7']['$viewValue']
+      ];
+      var subCheckBox1 = [
+        $scope['dailyForm']['dailyConsumption1']['$viewValue'],
+        $scope['dailyForm']['dailyConsumption2']['$viewValue'],
+        $scope['dailyForm']['dailyConsumption3']['$viewValue']
+      ];
+      var subCheckBox2 = [
+        $scope['dailyForm']['dailyFoodHealth1']['$viewValue'],
+        $scope['dailyForm']['dailyFoodHealth2']['$viewValue'],
+        $scope['dailyForm']['dailyFoodHealth3']['$viewValue']
+      ];
+      var subCheckBox3 = [
+        $scope['dailyForm']['dailyEntertainment1']['$viewValue'],
+        $scope['dailyForm']['dailyEntertainment2']['$viewValue'],
+        $scope['dailyForm']['dailyEntertainment3']['$viewValue'],
+        $scope['dailyForm']['dailyEntertainment4']['$viewValue'],
+        $scope['dailyForm']['dailyEntertainment5']['$viewValue']
+      ];
+      var subCheckBox4 = [
+        $scope['dailyForm']['dailySelfimprovement1']['$viewValue'],
+        $scope['dailyForm']['dailySelfimprovement2']['$viewValue'],
+        $scope['dailyForm']['dailySelfimprovement3']['$viewValue'],
+        $scope['dailyForm']['dailySelfimprovement4']['$viewValue']
+      ];
+
+      var parentCheckboxReturn = !atLeastChecked(parentCheckStatus);
+      var subCheckBox1Return = subCheckboxValidation($scope['dailyForm']['categoryDaily-2']['$viewValue'],subCheckBox1);
+      var subCheckBox2Return = subCheckboxValidation($scope['dailyForm']['categoryDaily-3']['$viewValue'],subCheckBox2);
+      var subCheckBox3Return = subCheckboxValidation($scope['dailyForm']['categoryDaily-4']['$viewValue'],subCheckBox3);
+      var subCheckBox4Return = subCheckboxValidation($scope['dailyForm']['categoryDaily-5']['$viewValue'],subCheckBox4);
+      var dependencyReturn = $scope.dailyForm.$invalid;
+      var finalReturn = dependencyReturn || parentCheckboxReturn || subCheckBox1Return || subCheckBox2Return || subCheckBox3Return || subCheckBox4Return;
+
+      return finalReturn;
+    };
 
     $scope.onReadySurvey = function(swiper, to) {
-
       swiper.on('onReachEnd', function() {
-        //console.log('last question');
         $scrollDownHint.hide();
         $btn.show();
       });
 
-
       swiper.on('onSlideChangeEnd', function(swiper) {
 
-        //var Question3TravelAnswer = [$scope.formData.travelAirline,travelRailway,travelRentCar,travelInsurance];
-        //console.log(Question3Exp);
-
-        if ($scope.formData.memberType == "" ) {
+        if ($scope.formData.memberType == "") {
           swiper.slideTo(0);
-          errorMsg.show();
-          $(swiper['container']).find('.swiper-slide-active').addClass('error-quiz')
-
+          $('.swiper-slide-active').addClass('error-quiz');
         } else if ($scope.formData.preferReward == "" && swiper.activeIndex > 1) {
           swiper.slideTo(1);
-          errorMsg.show();
-          $(swiper['container']).find('.swiper-slide-active').addClass('error-quiz')
-
-        } /*else if ($scope.formData.preferReward == "" && swiper.activeIndex > 2) {
-          //errorMsg.show();
-          console.log('chk detail travel options');
-
-
-        } */else if ($scope.formData.preferTreatment == "" && swiper.activeIndex > 3) {
+          $('.swiper-slide-active').addClass('error-quiz');
+        } else if ($scope.formData.preferTreatment == "" && swiper.activeIndex > 3) {
           swiper.slideTo(3);
-          errorMsg.show();
-          $(swiper['container']).addClass('error-quiz')
-
-        }
-        //console.log(Question3Exp);
-        //console.log($scope.formData.comment == "");
-        if ($scope.formData.comment == "" && swiper.activeIndex > 3 ){
-          //console.log('comment is empty');
-          errorMsg.show();
-
+          $('.swiper-slide-active').addClass('error-quiz');
         }
       })
       swiper.on('onSlideChangeStart', function(swiper) {
-        //console.log('slideChangeStart',swiper.index);
-        //$scrollDownHint.show();
+
         questionIndex = swiper.activeIndex + 1;
         errorMsg.hide();
 
         if (questionIndex == 3 && question3initOpen == true) {
-          question3initOpen = false;
+
           if ($scope.formData.preferReward == "travel") {
             $("#travel").unbind('hidden');
             $("#travel").modal("show");
             $("#travel").on('hidden.bs.modal', function(e) {
               swiper.slideTo(3);
             });
+            question3initOpen = false;
           }
           if ($scope.formData.preferReward == "daily") {
             $("#daily").unbind('hidden');
@@ -153,6 +214,7 @@ app.controller("surveyCtrl", ["$scope", "FBURL", "$firebaseArray",
             $("#daily").on('hidden.bs.modal', function(e) {
               swiper.slideTo(3);
             });
+            question3initOpen = false;
           }
           if ($scope.formData.preferReward == "both") {
             $("#travel").modal("show");
@@ -162,15 +224,19 @@ app.controller("surveyCtrl", ["$scope", "FBURL", "$firebaseArray",
             $("#daily").on('hidden.bs.modal', function(e) {
               swiper.slideTo(3);
             });
+            question3initOpen = false;
           }
         }
+
         if (questionIndex < swiper.slides.length) {
-          $scrollDownHint.show();
-          $btn.hide();
-          $scrollIndex.text(questionIndex);
-        } else if (questionIndex == swiper.slides.length) {
-          $scrollIndex.text(questionIndex);
-        }
+               $scrollDownHint.show();
+               $btn.hide();
+               $scrollIndex.text(questionIndex);
+             } else if (questionIndex == swiper.slides.length) {
+               $scrollIndex.text(questionIndex);
+             }
+
+
       });
     };
 
@@ -183,7 +249,6 @@ app.controller("surveyCtrl", ["$scope", "FBURL", "$firebaseArray",
       "memberType": "",
       "preferReward": '',
       "preferTreatment": "",
-      "comment": "",
       "timestamp": $scope.timestamp
     };
 
@@ -210,7 +275,7 @@ app.controller("surveyCtrl", ["$scope", "FBURL", "$firebaseArray",
        * Add survey to Firebase database.
        */
     $scope.addSurvey = function() {
-      if ($scope.formData.name ) {
+      if ($scope.formData.name) {
 
         // change button to loading state
         $btn.button("loading");

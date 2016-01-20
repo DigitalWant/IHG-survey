@@ -250,6 +250,10 @@ body {
 .swiper-slide {
   padding-right: 25px;
   padding-left: 15px;
+  position: relative;
+  .alert-danger {
+    position: absolute;
+  }
 }
 .highlight {
   .has-feedback {
