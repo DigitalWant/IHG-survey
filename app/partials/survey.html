@@ -462,6 +462,9 @@
           <label class="col-xs-12 control-label">
             <input type="checkbox" name="categoryDaily-2"  ng-change="formData.dailyCustLuxury=false" ng-model="formData.dailyConsumption"> 日常消费类</label>
           <div class="col-xs-12" ng-show="formData.dailyConsumption">
+            <p>
+              (请至少选择一项)
+            </p>
             <div class="checkbox">
               <label>
                 <input type="checkbox" name="dailyConsumption1" ng-value="oilFee" ng-model="formData.dailyConsumptionOptions.oilFee"> 汽油卡
@@ -486,6 +489,9 @@
           <label class="col-xs-12 control-label">
             <input type="checkbox" name="categoryDaily-3" ng-model="formData.dailyFoodHealth"> 美食与健康生活</label>
           <div class="col-xs-12" ng-show="formData.dailyFoodHealth">
+            <p>
+              (请至少选择一项)
+            </p>
             <div class="checkbox">
               <label>
                 <input type="checkbox" name="dailyFoodHealth1" ng-value="food" ng-model="formData.dailyFoodHealthOptions.food"> 美食
@@ -509,6 +515,9 @@
           <label class="col-xs-12 control-label">
             <input type="checkbox" name="categoryDaily-4" ng-model="formData.dailyEntertainment"> 娱乐休闲</label>
           <div class="col-xs-12" ng-show="formData.dailyEntertainment">
+            <p>
+              (请至少选择一项)
+            </p>
             <div class="checkbox">
               <label>
                 <input type="checkbox" name="dailyEntertainment1" ng-value="movie" ng-model="formData.dailyEntertainmentOptions.movie"> 电影
@@ -542,6 +551,9 @@
           <label class="col-xs-12 control-label">
             <input type="checkbox" name="categoryDaily-5" ng-model="formData.dailySelfimprovement"> 自我提升 </label>
           <div class="col-xs-12" ng-show="formData.dailySelfimprovement">
+            <p>
+              (请至少选择一项)
+            </p>
             <div class="checkbox">
               <label>
                 <input type="checkbox" name="dailySelfimprovement1" ng-value="mba" ng-model="formData.dailySelfimprovementOptions.mba"> MBA课程
