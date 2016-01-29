@@ -29,6 +29,10 @@ app.config(["$routeProvider",
             templateUrl: "partials/demoSwipe.html",
             controller: "demoSwipeCtrl"
         });
+        $routeProvider.when("/eventEnd", {
+            templateUrl: "partials/eventEnd.html",
+            controller: "eventEndCtrl"
+        });
         $routeProvider.when("/result", {
             templateUrl: "partials/result.html",
             controller: "resultCtrl",
@@ -41,7 +45,7 @@ app.config(["$routeProvider",
             }
         });
 
-        $routeProvider.otherwise({redirectTo: "/welcome"});
+        $routeProvider.otherwise({redirectTo: "/eventEnd"});
 
     }
 ]);
